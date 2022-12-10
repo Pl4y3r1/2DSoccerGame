@@ -772,7 +772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20e0bbc9d81cbe0458ad0fc1652b6875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collided: 0
 --- !u!58 &1426542553
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -782,7 +781,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 1426542548}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: afe8ff1ad0da1ac4a93b2ee014ff49ca, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

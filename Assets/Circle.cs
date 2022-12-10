@@ -4,42 +4,74 @@ using UnityEngine;
 
 public class Circle : MonoBehaviour
 {
-	public bool collided;
+	private long count;
+	private int REFLECT_CONSTANT = 2;
+	private int NORMALIZE_CONSTANT = 3;
 	Vector2 vector;
-	Vector2 vector2;
 
 	void OnCollisionEnter2D(){
-		collided = true;
-		if(vector == Vector2.right){
-			vector = Vector2.left;
-		} else {
-			vector = Vector2.right;
-		}
+		if(vector == Vector2.right) {
+            if(count%REFLECT_CONSTANT == 0){
+                vector = Vector2.left + Vector2.up;
+            } else if(count%NORMALIZE_CONSTANT == 0){
+            	vector = Vector2.left;
+            } else {
+            	vector = Vector2.left + Vector2.down;
+            }
+            } else if(vector == Vector2.left) {
+                if(count%REFLECT_CONSTANT == 0){
+                    vector = Vector2.right + Vector2.down;
+            	} else if(count%NORMALIZE_CONSTANT == 0){
+                    vector = Vector2.right;
+                } else {
+                    vector = Vector2.right + Vector2.up;
+                }
+            } else if((vector - Vector2.down) == Vector2.left) {
+                if(count%REFLECT_CONSTANT == 0){
+                    vector = Vector2.right + Vector2.down;
+            	} else if(count%NORMALIZE_CONSTANT == 0){
+            	    vector = Vector2.right;
+                } else{
+            	    vector = Vector2.right + Vector2.up;
+                }
+            } else if((vector - Vector2.down) == Vector2.right) {
+                if(count%REFLECT_CONSTANT == 0){
+            		vector = Vector2.left + Vector2.down;
+                } else if(count%NORMALIZE_CONSTANT == 0){
+            		vector = Vector2.left;
+                } else{
+            		vector = Vector2.left + Vector2.up;
+            	}
+            } else if((vector - Vector2.up) == Vector2.right) {
+                if(count%REFLECT_CONSTANT == 0){
+            		vector = Vector2.left + Vector2.up;
+            	} else if(count%NORMALIZE_CONSTANT == 0){
+            		vector = Vector2.left;
+            	} else {
+            		 vector = Vector2.left + Vector2.down;
+            	}
+            } else if((vector - Vector2.up) == Vector2.left) {
+            	if(count%REFLECT_CONSTANT == 0){
+            		vector = Vector2.right + Vector2.down;
+            	} else if(count%NORMALIZE_CONSTANT == 0){
+            		vector = Vector2.right;
+                } else {
+            		vector = Vector2.right + Vector2.down;
+                }
+           }
+		count++;
 	}
-
 
     // Start is called before the first frame update
     void Start()
     {
-	vector = Vector2.right;
+	    vector = Vector2.right;
+	    count = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-	OnCollisionEnter2D();
-
-	if(collided){
-		if(vector == Vector2.right){
-			vector = Vector2.left;
-			collided = false;
-		} else {
-			vector = Vector2.right;
-			collided = false;
-		}
-
-	}
         transform.Translate(vector * 4 * Time.deltaTime);
-
     }
 }
